@@ -1,0 +1,7 @@
+{
+  "name": "TFDemoIonic",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
