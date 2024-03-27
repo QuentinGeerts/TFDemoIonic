@@ -6,12 +6,56 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
+<ion-content [fullscreen]="true" class="ion-padding">
+
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">Tab 3</ion-title>
+      <ion-title size="large">Météo</ion-title>
     </ion-toolbar>
   </ion-header>
 
-  <app-explore-container name="Tab 3 page"></app-explore-container>
+  <ion-item>
+    <ion-input (keyup.enter)="search()" [(ngModel)]="cityName" placeholder="Enter your city"></ion-input>
+    <ion-button (click)="search()">Rechercher</ion-button>
+  </ion-item>
+
+  @if (geolocalisation && weatherData) {
+    <ion-card class="ion-padding-vertical">
+      <ion-card-header>
+        <ion-card-subtitle>
+          <ion-row class="ion-align-items-center">
+            <ion-img [src]="weatherDataIcon" style="width: 50px"></ion-img>
+            <ion-text>
+              {{ weatherData.name }}, {{ weatherData.sys.country }}
+            </ion-text>
+          </ion-row>
+        </ion-card-subtitle>
+        <ion-card-title>
+          {{ weatherData.main.temp }}°C - {{ weatherData.weather[0].description }}
+        </ion-card-title>
+
+      </ion-card-header>
+
+      <ion-card-content>
+
+
+        <p>Vitesse du vent: {{ weatherData.wind.speed }} m/s</p>
+        <p>Humidité: {{ weatherData.main.humidity }}%</p>
+
+        <br>
+
+        <p>Température minimum : {{ weatherData.main.temp_min }}°C</p>
+        <p>Température maximum : {{ weatherData.main.temp_max }}°C</p>
+
+        <br>
+
+        <p>Levé du soleil : {{ weatherData.sys.sunrise * 1000 | date : "HH:mm" }}</p>
+        <p>Couché du soleil : {{ weatherData.sys.sunset * 1000 | date : "HH:mm" }}</p>
+
+        <!-- Add here other data you want to display from weatherData -->
+
+      </ion-card-content>
+    </ion-card>
+  }
+
 </ion-content>
